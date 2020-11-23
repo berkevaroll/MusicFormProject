@@ -1,31 +1,50 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model MusicFormProject.Models.Music
+@{
+    ViewBag.Title = "Music Form";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<h2>Add Music</h2>
+<br />
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+@using(Ajax.BeginForm("Create","Home",FormMethod.Post,new AjaxOptions{OnSuccess="success"})){
+    <label>Song Name: </label><br />
+    @Html.TextBoxFor(m=>m.SongName)<br />
+@Html.ValidationMessageFor(m => m.SongName,"", new { @class = "text-danger" })
+    <br />
+    <label>Album Name: </label><br />
+    @Html.TextBoxFor(m=>m.AlbumName)
+    <br />
+    <label>Artist: </label><br />
+    @Html.TextBoxFor(m=>m.Artist)<br />
+@Html.ValidationMessageFor(m => m.Artist, "", new { @class = "text-danger" })
+    <br />
+    <label>Duration: </label><br />
+    @Html.TextBoxFor(m=>m.Duration)
+    <br />
+    <label>Year: </label><br />
+    @Html.TextBoxFor(m=>m.PublishYear)
+    <br />
+    <input type="submit" value="Save"/>
+
+}
+@section scripts
+{
+    <script type="text/javascript">
+        function success(result)
+        {
+            if(result.IsSuccess){  
+
+               alert(result.ResMessage);
+               $("form")[0].reset();
+            }else{
+                alert(result.ResMessage)
+            }            
+            
+        }
+</script>
+        
+    
+    
+    
+    
+}
